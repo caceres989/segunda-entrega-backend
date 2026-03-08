@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4">Productos en Tiempo Real</h1>
+        
+        <!-- Formulario para agregar productos -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">➕ Agregar Nuevo Producto</h5>
+            </div>
+            <div class="card-body">
+                <form id="productForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="title" class="form-label">Título *</label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="code" class="form-label">Código *</label>
+                            <input type="text" class="form-control" id="code" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción *</label>
+                        <textarea class="form-control" id="description" rows="2" required></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="price" class="form-label">Precio *</label>
+                            <input type="number" class="form-control" id="price" step="0.01" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="stock" class="form-label">Stock *</label>
+                            <input type="number" class="form-control" id="stock" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="category" class="form-label">Categoría *</label>
+                            <input type="text" class="form-control" id="category" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="status" checked>
+                                <label class="form-check-label" for="status">Producto disponible</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        Agregar Producto
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        Limpiar
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Lista de productos -->
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">📦 Lista de Productos</h5>
+            </div>
+            <div class="card-body">
+                <div id="productsContainer" class="row">
+                    {{#each products}}
+                        <div class="col-md-4 mb-4 product-card" data-id="{{this.id}}">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.title}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Código: {{this.code}}</h6>
+                                    <p class="card-text">{{this.description}}</p>
+                                    <ul class="list-unstyled">
+                                        <li><strong>Precio:</strong> ${{this.price}}</li>
+                                        <li><strong>Categoría:</strong> {{this.category}}</li>
+                                        <li><strong>Stock:</strong> {{this.stock}} unidades</li>
+                                    </ul>
+                                    <span class="badge {{#if this.status}}bg-success{{else}}bg-danger{{/if}} mb-2">
+                                        {{#if this.status}}Disponible{{else}}No disponible{{/if}}
+                                    </span>
+                                    <button class="btn btn-danger btn-sm w-100 delete-product" data-id="{{this.id}}">
+                                        🗑️ Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtime.js"></script>

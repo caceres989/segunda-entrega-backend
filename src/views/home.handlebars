@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4">Lista de Productos</h1>
+        
+        {{#if products.length}}
+            <div class="row">
+                {{#each products}}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 product-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.title}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Código: {{this.code}}</h6>
+                                <p class="card-text">{{this.description}}</p>
+                                <ul class="list-unstyled">
+                                    <li><strong>Precio:</strong> ${{this.price}}</li>
+                                    <li><strong>Categoría:</strong> {{this.category}}</li>
+                                    <li><strong>Stock:</strong> {{this.stock}} unidades</li>
+                                </ul>
+                                <span class="badge {{#if this.status}}bg-success{{else}}bg-danger{{/if}}">
+                                    {{#if this.status}}Disponible{{else}}No disponible{{/if}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="alert alert-info text-center">
+                <h4>No hay productos disponibles</h4>
+                <p>Agrega productos desde la vista de <a href="/realtimeproducts">Tiempo Real</a></p>
+            </div>
+        {{/if}}
+    </div>
+</div>
